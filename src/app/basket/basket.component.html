@@ -1,0 +1,18 @@
+<section class="my-lg-14 my-8">
+  <div class="container">
+    <button [routerLink]="'/'" type="button" class="btn btn-success">
+      Back home
+    </button>
+@for(product of products$ | async; track product.id) {
+  <p>{{product.title}}</p>
+  <p>{{product.price | currency}}</p>
+  <button class="btn btn-danger" (click)="onRemovedButtonClicked(product)">
+    <i class="bi bi-basket"></i> Remove from cart
+</button>
+} 
+  </div>
+<p>total value: {{totalValue$ | async | currency}}</p>
+<button class="btn btn-info" (click)="onSendButtonClicked()">
+  <i class="bi bi-basket"></i> Send basket
+</button>
+</section>

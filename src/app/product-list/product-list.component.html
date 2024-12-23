@@ -1,0 +1,61 @@
+<section class="my-lg-14 my-8">
+  @if(productList()) {
+  <div class="container">
+    <h3>{{header()}}</h3>
+    <nav>
+      <ul class="pagination">
+        @for(item of sizeOptions(); track item) {
+          <li class="page-item"
+              [ngClass]="{active: item === pageSize()}"><a class="page-link"
+                  (click)="onLimitChanged(item)">{{item}}</a></li>
+        }
+      </ul>
+
+      <button class="btn btn-success" [routerLink]="'/basket'">
+        Go to basket
+    </button>
+  </nav>
+  <nav>
+    <div class="d-block">
+      <ul class="navbar-nav">
+          <li *ngFor="let item of categories$ | async" class="nav-item"><a class="nav-link" role="button">{{item}}</a></li>
+      </ul>
+  </div>
+  </nav>
+    <div class="row row-cols-lg-5">
+      @for(product of productList(); track product.id) {
+      <div>
+        <a
+          [routerLink]="'/products/' + product.id"
+          class="text-decoration-none text-inherit"
+          ><!-- card -->
+          <div class="card card-product">
+            <div class="card-body text-center py-8">
+              <!-- img --><img
+                [src]="product.image"
+                [alt]="product.title"
+                class="mb-3"
+              /><!-- text -->
+              <div class="text-start">{{ product.title }}</div>
+              <div class="text-start">{{ product.price | currency }}</div>
+              <div class="text-start">Quantity: {{ product.quantity }}</div>
+              <button
+              class="btn btn-success"
+              (click)="onAddButtonClicked(product); $event.stopPropagation(); $event.preventDefault()"
+            >
+              <i class="bi bi-basket"></i> Add to cart
+            </button>
+            <button class="btn btn-danger" (click)="onRemoveButtonClicked(product); $event.stopPropagation(); $event.preventDefault()">
+              <i class="bi bi-basket"></i> Remove from cart
+          </button>
+
+            </div>
+          </div>
+        </a>
+      </div>
+      }
+    </div>
+    <div class="row"></div>
+  </div>
+  }
+</section>
