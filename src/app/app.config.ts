@@ -12,13 +12,14 @@ import { BasketReducer } from './store/basket-store/basket.reducers';
 import { CartService } from './services/cart.service';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { StockReducers } from './store/stock-store/stock.reducers';
+import { StockEffects } from './store/stock-store/stock.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
     provideStore({ basket: BasketReducer, stock: StockReducers}),
-    provideEffects(BasketEffects),
+    provideEffects([BasketEffects, StockEffects]),
     ProductService,
     CategoryService,
     CartService,

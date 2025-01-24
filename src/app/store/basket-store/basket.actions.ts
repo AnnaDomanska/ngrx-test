@@ -10,6 +10,10 @@ export const BasketActions = createActionGroup({
         'Update total value': emptyProps(),
         'Send basket to api': emptyProps(),
         'Send basket succesfully': emptyProps(),
-        'Send basket failure': props<{error: Error}>()
+        'Send basket failure': props<{error: Error}>(),
+        'Clear basket': emptyProps(),
+        'Load basket from local storage': emptyProps(),
+        'Set basket': props<{products: ProductModel[], totalValueForClient: number}>(),
+        'Save basket to local storage': emptyProps()
     }
 })

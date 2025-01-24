@@ -23,5 +23,13 @@ export const StockReducers = createReducer(StockState.INIT_STATE,
               : product
           ),
         };
+      }),
+      on(StockActions.productQuantityTurned0, (state, action) => {
+        return {
+          ...state, 
+          notAvailableProducts: state.notAvailableProducts.includes(action.productId)
+          ? state.notAvailableProducts 
+          : [...state.notAvailableProducts, action.productId]
+        }
       })
 )

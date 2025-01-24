@@ -22,5 +22,15 @@ export const BasketReducer = createReducer(
   on(BasketActions.updateTotalValue, (state) => {
    const totalValueForClient = state.products.reduce((sum, product) => sum + product.price, 0)
     return {...state, totalValueForClient}
+  }),
+  on(BasketActions.clearBasket, (state) => {
+    return {...state, products: [], totalValueForClient: 0}
+  }),
+  on(BasketActions.setBasket, (state, { products, totalValueForClient }) => {
+    return {
+      ...state,  
+      products,
+      totalValueForClient,
+    };
   })
 );

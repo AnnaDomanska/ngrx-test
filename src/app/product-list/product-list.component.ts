@@ -44,7 +44,8 @@ export class ProductListComponent {
   readonly products$: Observable<ProductViewModel[]> = combineLatest([
     this.productService.getAll(),
     this.stockStore.select(StockState.selectProductsQuantity),
-  ]).pipe(map(([products, productsQuantity]) => {return products.map(product => {
+    this.stockStore.select(StockState.selectNotAvailableProducts)  
+  ]).pipe(map(([products, productsQuantity, notAvailableProducts]) => {return products.filter((product) => !notAvailableProducts.includes(product.id)).map(product => {
     const productQuantity = productsQuantity.find(pq => pq.id === product.id)?.quantity || 0
     return {...product, quantity: productQuantity}})}));
   readonly categories$: Observable<string[]> = this.categoryService.getAll();
